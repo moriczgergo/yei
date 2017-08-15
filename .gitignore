@@ -1,2 +1,3 @@
 # Not pushing these folders to the repository, use yarn or npm to install them.
 node_modules/
+npm-debug.log
