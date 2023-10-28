@@ -71,5 +71,31 @@ module.exports = [
         action: function(message) {
             message.reply("Pong!");
         }
+    },
+    {
+        name: "purge <x>",
+        description: "Gets rid of x number of secrets. :eyes:",
+        action: function(message){
+            if (message.member.hasPermission("MANAGE_MESSAGES") && message.channel.type != "dm") {
+                var commanddata = message.content.substr(prefix.length, message.length);
+                var commandargs = commanddata.split(" "); //split command arguments by spaces
+                commandargs.shift(); //pop first element (command name)
+                var msgs = message.channel.messages.array();
+                var userMsgLen = 0;
+                if (commandargs.length > 0){
+                    userMsgLen = parseInt(commandargs[0]);
+                    if (isNaN(userMsgLen)){
+                        message.reply(`Invalid number ${formatting.code}${commandargs[0]}${formatting.code}.`);
+                        return;
+                    } else {
+                    }
+                } else {
+                    message.reply("You need to specify how much messages I should delete.");
+                    return;
+                }
+                var selectedmsgs = msgs.slice(msgs.length - userMsgLen, msgs.length);
+                message.channel.bulkDelete(selectedmsgs, true);
+            }
+        }
     }
 ]
